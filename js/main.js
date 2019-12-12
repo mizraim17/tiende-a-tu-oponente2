@@ -1,5 +1,5 @@
 var canvas = document.getElementById("canvas");
-var turno = 0;
+var turno = false;
 var interval = 0;
 var d = new Date();
 var time = d.getHours();
@@ -316,25 +316,23 @@ function make_building() {
 }
 
 butReinicia.onclick = function() {
-	console.log("q trae canvas", canvas.ctx);
 	location.reload();
-	console.log("entor a reincia ");
 	start();
 };
 
-$("#btn-shoot").on("click", function(e) {
-	e.preventDefault();
+// $("#btn-shoot").on("click", function(e) {
+// 	e.preventDefault();
 
-	if ($("#gnomo").hasClass("show")) {
-		$("#gnomo").hide();
-		$("#vecina").show();
-		console.log("entro if gnomo ");
-	} else {
-		$("#vecina").hide();
-		$("#gnomo").show();
-		console.log("entro a else vecina");
-	}
-});
+// 	if ($("#gnomo_controls").hasClass("show")) {
+// 		$("#gnomo_controls").hide();
+// 		$("#vecina_controls").show();
+// 		console.log("entro if gnomo ");
+// 	} else {
+// 		$("#vecina_controls").hide();
+// 		$("#gnomo_controls").show();
+// 		console.log("entro a else vecina");
+// 	}
+// });
 
 butDispara.onclick = function() {
 	kame.play();
@@ -349,8 +347,7 @@ function aplicarFuerza() {
 	ctx = canvas.getContext("2d");
 	// ctx.clearRect(0, 0, canvas.width, canvas.height);
 
-	if (turno === 0) {
-		// console.log('entrop al turno 1');
+	if (turno === false) {
 		fondo.draw();
 		drawBuildings();
 		vecina.draw();
@@ -377,11 +374,21 @@ function aplicarFuerza() {
 	// console.log('entro a la fuerzaaaaaaaaz');
 }
 function changeturn() {
-	console.log("entro a cambiar turno", fondo);
+	// console.log("entro a cambiar turno");
+	alert("change turn =" + turno);
 	clearInterval(interval);
 	fondo.ctx.font = "30px Avenir";
 	fondo.ctx.fillText("Le toca a tu oponente", 210, 180);
-	turno = 1;
+
+	turno = !turno;
+
+	if (turno == false) {
+		$("#gnomo_controls").hide();
+		$("#vecina_controls").show();
+	} else {
+		$("#vecina_controls").hide();
+		$("#gnomo_controls").show();
+	}
 }
 function puntoImpacto(angulo, velocidad) {
 	// console.log('angulo',angulo);
@@ -396,15 +403,17 @@ function puntoImpacto(angulo, velocidad) {
 	chancla.x += chancla.vx;
 	chancla.y -= chancla.vy;
 
+	console.log("chancla.vx", chancla.x);
+	console.log("chancla.vy", chancla.y);
+
 	chancla.drawfin(chancla.vx, chancla.vy);
 
-	// console.log("chancla.vx", chancla.x);
-	// console.log("chancla.vy--->", chancla.y);
+	// console.log("cubeta-yyyy---->", chancla.y);
 	// console.log("fondo.width--->", fondo.height);
 
 	colisiones();
 
-	if (chancla.x > fondo.width || chancla.y < -60) {
+	if (chancla.x > fondo.width || chancla.y < -60 || chancla.y > fondo.height) {
 		console.log("entro al if");
 		console.log("cha y", chancla.y);
 		console.log("cha x", chancla.x);
@@ -430,14 +439,12 @@ function puntoImpactoV(angulo, velocidad) {
 
 	cubeta.drawfin(cubeta.vx, cubeta.vy);
 
-	// console.log('cubeta.vx', cubeta.x);
-	console.log("cubeta--->", cubeta.y);
-	console.log("cubetaxxxxxxx>", cubeta.x);
-	console.log("fondo.width--->", fondo.width);
+	// console.log("cubeta-yyyy---->", cubeta.y);
+	// console.log("fondo.width--->", fondo.height);
 
 	colisionesV();
 
-	if (cubeta.x < fondo.width || cubeta.y < -95) {
+	if (cubeta.x < -55 || cubeta.y < -95 || cubeta.y > fondo.height + 55) {
 		console.log("entro al if");
 		console.log("cha y", cubeta.y);
 		console.log("cha x", cubeta.x);
@@ -462,7 +469,7 @@ function make_stage() {
 class Chancla {
 	constructor(x, y) {
 		this.ctx = canvas.getContext("2d");
-		console.log("x-cha", x);
+		// console.log("x-cha", x);
 		this.x = x + 40;
 		this.y = y - 30;
 		this.vx = x + 55;

@@ -58,6 +58,10 @@ body {
 	background: yellow;
 }
 
+.angulo {
+	font-weight: bold;
+}
+
 .players {
 	background-color: gray;
 	position: absolute;
@@ -69,7 +73,7 @@ body {
 	color: black;
 }
 
-#vecina {
+#vecina_controls {
 	margin-top: 10%;
 	margin-bottom: 10%;
 	margin-left: 50%;
@@ -90,7 +94,8 @@ body {
 	display: none;
 }
 
-#gnomo {
+#gnomo_controls {
+	display: none;
 	margin-top: 10%;
 	margin-bottom: 10%;
 	margin-right: 50%;
