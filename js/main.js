@@ -390,12 +390,10 @@ function changeturn() {
 		$("#gnomo_controls").show();
 	}
 }
-function puntoImpacto(angulo, velocidad) {
-	// console.log('angulo',angulo);
-	// console.log('velocidad',velocidad);
 
+function puntoImpacto(angulo, velocidad) {
 	var radianes = (angulo * Math.PI) / 180;
-	// console.log("radianes", radianes);
+	// console.log('radianes',radianes);
 
 	chancla.vx = (velocidad * Math.cos(radianes)) / 15;
 	chancla.vy = (velocidad * Math.sin(radianes) - (1 / 2) * gravedad) / 100;
@@ -403,25 +401,21 @@ function puntoImpacto(angulo, velocidad) {
 	chancla.x += chancla.vx;
 	chancla.y -= chancla.vy;
 
-	console.log("chancla.vx", chancla.x);
-	console.log("chancla.vy", chancla.y);
-
 	chancla.drawfin(chancla.vx, chancla.vy);
 
-	// console.log("cubeta-yyyy---->", chancla.y);
-	// console.log("fondo.width--->", fondo.height);
+	console.log("chancla.vx", chancla.x, "chancla.vy", chancla.y);
 
 	colisiones();
 
-	if (chancla.x > fondo.width || chancla.y < -60 || chancla.y > fondo.height) {
-		console.log("entro al if");
-		console.log("cha y", chancla.y);
-		console.log("cha x", chancla.x);
-		console.log("fon x", fondo.width);
-		console.log("fond y", fondo.height);
-		console.log("entro al if");
-		changeturn();
-	}
+	// if (chancla.x > fondo.width || chancla.y > fondo.height) {
+	// 	console.log("entro al if");
+	// 	console.log("cha y", chancla.y);
+	// 	console.log("cha x", chancla.x);
+	// 	console.log("fon x", fondo.width);
+	// 	console.log("fond y", fondo.height);
+	// 	console.log("entro al if");
+	// 	changeturn();
+	// }
 }
 
 function puntoImpactoV(angulo, velocidad) {
@@ -517,7 +511,7 @@ class Cube {
 		this.image = new Image();
 	}
 	draw() {
-		console.log("emtro al draw cubeta");
+		// console.log("emtro al draw cubeta");
 		var img = new Image();
 		img.onload = () => {
 			this.ctx.drawImage(img, this.x, this.y, this.width, this.height);
